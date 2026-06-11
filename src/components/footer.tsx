@@ -14,9 +14,9 @@ import { Separator } from "@/components/ui/separator"
 
 const footerLinks = {
   Services: [
-    { label: "Software Development", href: "#services" },
+    { label: "Software Dev", href: "#services" },
     { label: "Security Cameras", href: "#services" },
-    { label: "Program Installation", href: "#services" },
+    { label: "Program Setup", href: "#services" },
     { label: "Operating Systems", href: "#services" },
     { label: "Cybersecurity", href: "#services" },
     { label: "Cloud Services", href: "#services" },
@@ -29,9 +29,9 @@ const footerLinks = {
   ],
   Support: [
     { label: "Help Center", href: "#" },
-    { label: "Documentation", href: "#" },
-    { label: "System Status", href: "#" },
-    { label: "Service Agreement", href: "#" },
+    { label: "Docs", href: "#" },
+    { label: "Status", href: "#" },
+    { label: "Agreement", href: "#" },
   ],
 }
 
@@ -53,40 +53,40 @@ export function Footer() {
 
   return (
     <footer className="bg-card border-t">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         {/* Main footer content */}
-        <div className="py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="py-6 sm:py-10 lg:py-12 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
           {/* Brand section */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-primary text-primary-foreground">
-                <Code2 className="h-5 w-5" />
+          <div className="col-span-2 sm:col-span-2 lg:col-span-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-4">
+              <div className="flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-lg bg-primary text-primary-foreground">
+                <Code2 className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
               </div>
-              <span className="text-lg font-bold tracking-tight">
+              <span className="text-sm sm:text-lg font-bold tracking-tight">
                 Dev<span className="text-primary">Paradise</span>
               </span>
             </div>
-            <p className="text-sm text-muted-foreground mb-5 max-w-xs leading-relaxed">
+            <p className="text-[10px] sm:text-xs text-muted-foreground mb-3 sm:mb-5 max-w-xs leading-relaxed">
               Your comprehensive technology partner. From software development to
               security installations and everything in between.
             </p>
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <a
                 href="mailto:contact@devparadise.com"
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-muted-foreground hover:text-primary transition-colors"
               >
-                <Mail className="h-3.5 w-3.5" />
+                <Mail className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                 contact@devparadise.com
               </a>
               <a
                 href="tel:+15551234567"
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-muted-foreground hover:text-primary transition-colors"
               >
-                <Phone className="h-3.5 w-3.5" />
+                <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                 +1 (555) 123-4567
               </a>
-              <span className="flex items-center gap-2 text-sm text-muted-foreground">
-                <MapPin className="h-3.5 w-3.5" />
+              <span className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-muted-foreground">
+                <MapPin className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                 Havana, Cuba
               </span>
             </div>
@@ -95,8 +95,8 @@ export function Footer() {
           {/* Links sections */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="font-semibold text-sm mb-3">{title}</h4>
-              <ul className="space-y-2">
+              <h4 className="font-semibold text-[10px] sm:text-xs lg:text-sm mb-1.5 sm:mb-3">{title}</h4>
+              <ul className="space-y-0.5 sm:space-y-1.5">
                 {links.map((link) => (
                   <li key={link.label}>
                     <a
@@ -107,7 +107,7 @@ export function Footer() {
                           handleNavClick(link.href)
                         }
                       }}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      className="text-[10px] sm:text-xs text-muted-foreground hover:text-primary transition-colors"
                     >
                       {link.label}
                     </a>
@@ -121,11 +121,11 @@ export function Footer() {
         <Separator />
 
         {/* Bottom footer */}
-        <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} DevParadise. All rights reserved.
+        <div className="py-3 sm:py-5 flex flex-row items-center justify-between gap-2 flex-wrap">
+          <p className="text-[9px] sm:text-xs text-muted-foreground">
+            © {new Date().getFullYear()} DevParadise
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             {socialLinks.map((social) => (
               <a
                 key={social.label}
@@ -133,12 +133,12 @@ export function Footer() {
                 aria-label={social.label}
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                <social.icon className="h-4 w-4" />
+                <social.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </a>
             ))}
           </div>
-          <p className="text-xs text-muted-foreground flex items-center gap-1">
-            Made with <Heart className="h-3 w-3 text-primary fill-primary" /> by
+          <p className="text-[9px] sm:text-xs text-muted-foreground flex items-center gap-0.5 sm:gap-1">
+            Made with <Heart className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-primary fill-primary" /> by
             DevParadise
           </p>
         </div>

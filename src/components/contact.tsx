@@ -45,15 +45,15 @@ const contactInfo = [
   },
   {
     icon: Clock,
-    label: "Business Hours",
-    value: "Mon - Fri: 9:00 AM - 6:00 PM",
+    label: "Hours",
+    value: "Mon-Fri: 9AM - 6PM",
     href: "#",
   },
 ]
 
 export function Contact() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { once: true, margin: "-80px" })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [formData, setFormData] = useState({
@@ -87,39 +87,40 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 sm:py-28 relative">
+    <section id="contact" className="py-10 sm:py-20 lg:py-28 relative">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8" ref={ref}>
         {/* Section header */}
         <motion.div
-          className="text-center mb-14"
+          className="text-center mb-5 sm:mb-10 lg:mb-14"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-4">
+          <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-2 sm:mb-4">
             Get In Touch
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-2 sm:mb-4">
             Let&apos;s Build <span className="gradient-text">Together</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+          <p className="text-muted-foreground max-w-2xl mx-auto text-xs sm:text-base lg:text-lg">
             Ready to start your next project? Get in touch and let&apos;s
             discuss how we can help bring your vision to life.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
+        <div className="grid lg:grid-cols-5 gap-4 sm:gap-8 lg:gap-12">
           {/* Contact info sidebar */}
           <motion.div
-            className="lg:col-span-2 space-y-4"
+            className="lg:col-span-2"
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-xl font-semibold mb-6">Contact Information</h3>
-            <div className="space-y-4">
+            <h3 className="text-sm sm:text-lg font-semibold mb-2 sm:mb-4">Contact Information</h3>
+            {/* Contact items — 2 cols on mobile */}
+            <div className="grid grid-cols-2 lg:grid-cols-1 gap-1.5 sm:gap-2 lg:gap-3">
               {contactInfo.map((info, i) => (
                 <motion.div
                   key={info.label}
@@ -129,16 +130,16 @@ export function Contact() {
                 >
                   <a
                     href={info.href}
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors group"
+                    className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg hover:bg-accent transition-colors group"
                   >
-                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                      <info.icon className="h-4 w-4" />
+                    <div className="flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 shrink-0">
+                      <info.icon className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4" />
                     </div>
-                    <div>
-                      <div className="text-xs text-muted-foreground">
+                    <div className="min-w-0">
+                      <div className="text-[9px] sm:text-[10px] lg:text-xs text-muted-foreground">
                         {info.label}
                       </div>
-                      <div className="text-sm font-medium">{info.value}</div>
+                      <div className="text-[10px] sm:text-xs lg:text-sm font-medium truncate">{info.value}</div>
                     </div>
                   </a>
                 </motion.div>
@@ -147,14 +148,14 @@ export function Contact() {
 
             {/* Map placeholder */}
             <motion.div
-              className="mt-6 rounded-xl border bg-muted/30 overflow-hidden h-48 flex items-center justify-center"
+              className="mt-3 sm:mt-5 rounded-lg sm:rounded-xl border bg-muted/30 overflow-hidden h-24 sm:h-36 lg:h-48 flex items-center justify-center"
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.4 }}
             >
               <div className="text-center text-muted-foreground">
-                <MapPin className="h-8 w-8 mx-auto mb-2 text-primary/40" />
-                <p className="text-sm">Havana, Cuba</p>
+                <MapPin className="h-5 w-5 sm:h-7 sm:w-7 mx-auto mb-1 sm:mb-2 text-primary/40" />
+                <p className="text-[10px] sm:text-xs">Havana, Cuba</p>
               </div>
             </motion.div>
           </motion.div>
@@ -167,46 +168,48 @@ export function Contact() {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <Card>
-              <CardContent className="p-6 sm:p-8">
+              <CardContent className="p-3 sm:p-5 lg:p-8">
                 {isSubmitted ? (
                   <motion.div
-                    className="flex flex-col items-center justify-center py-12 text-center"
+                    className="flex flex-col items-center justify-center py-8 sm:py-12 text-center"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                   >
-                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                      <CheckCircle2 className="h-7 w-7 text-primary" />
+                    <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-primary/10 flex items-center justify-center mb-3 sm:mb-4">
+                      <CheckCircle2 className="h-5 w-5 sm:h-7 sm:w-7 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">
+                    <h3 className="text-base sm:text-xl font-semibold mb-1 sm:mb-2">
                       Message Sent!
                     </h3>
-                    <p className="text-muted-foreground text-sm max-w-md">
+                    <p className="text-muted-foreground text-xs sm:text-sm max-w-md">
                       Thank you for reaching out. We&apos;ll get back to you
                       within 24 hours.
                     </p>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Full Name</Label>
+                  <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 lg:space-y-5">
+                    <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
+                      <div className="space-y-1 sm:space-y-2">
+                        <Label htmlFor="name" className="text-[10px] sm:text-xs">Full Name</Label>
                         <Input
                           id="name"
                           placeholder="Your name"
                           required
+                          className="h-8 sm:h-10 text-xs sm:text-sm"
                           value={formData.name}
                           onChange={(e) =>
                             setFormData({ ...formData, name: e.target.value })
                           }
                         />
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email Address</Label>
+                      <div className="space-y-1 sm:space-y-2">
+                        <Label htmlFor="email" className="text-[10px] sm:text-xs">Email</Label>
                         <Input
                           id="email"
                           type="email"
                           placeholder="your@email.com"
                           required
+                          className="h-8 sm:h-10 text-xs sm:text-sm"
                           value={formData.email}
                           onChange={(e) =>
                             setFormData({ ...formData, email: e.target.value })
@@ -215,15 +218,15 @@ export function Contact() {
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="service">Service Needed</Label>
+                    <div className="space-y-1 sm:space-y-2">
+                      <Label htmlFor="service" className="text-[10px] sm:text-xs">Service Needed</Label>
                       <Select
                         value={formData.service}
                         onValueChange={(value) =>
                           setFormData({ ...formData, service: value })
                         }
                       >
-                        <SelectTrigger id="service">
+                        <SelectTrigger id="service" className="h-8 sm:h-10 text-xs sm:text-sm">
                           <SelectValue placeholder="Select a service" />
                         </SelectTrigger>
                         <SelectContent>
@@ -257,13 +260,14 @@ export function Contact() {
                       </Select>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Project Details</Label>
+                    <div className="space-y-1 sm:space-y-2">
+                      <Label htmlFor="message" className="text-[10px] sm:text-xs">Project Details</Label>
                       <Textarea
                         id="message"
-                        placeholder="Tell us about your project, requirements, and timeline..."
-                        rows={5}
+                        placeholder="Tell us about your project..."
+                        rows={3}
                         required
+                        className="text-xs sm:text-sm min-h-[60px] sm:min-h-[100px]"
                         value={formData.message}
                         onChange={(e) =>
                           setFormData({
@@ -276,19 +280,18 @@ export function Contact() {
 
                     <Button
                       type="submit"
-                      className="w-full gap-2"
-                      size="lg"
+                      className="w-full gap-2 h-8 sm:h-10 lg:h-12 text-xs sm:text-sm"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (
                         <>
-                          <Loader2 className="h-4 w-4 animate-spin" />
+                          <Loader2 className="h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
                           Sending...
                         </>
                       ) : (
                         <>
                           Send Message
-                          <Send className="h-4 w-4" />
+                          <Send className="h-3 w-3 sm:h-4 sm:w-4" />
                         </>
                       )}
                     </Button>

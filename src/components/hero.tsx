@@ -15,16 +15,13 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-[85vh] sm:min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Gradient orbs */}
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/3 rounded-full blur-3xl" />
-
-        {/* Grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -34,23 +31,23 @@ export function Hero() {
         />
       </div>
 
-      {/* Floating icons */}
+      {/* Floating icons - hidden on mobile */}
       <motion.div
-        className="absolute top-32 left-[15%] text-primary/20"
+        className="absolute top-32 left-[15%] text-primary/20 hidden sm:block"
         animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       >
         <Monitor className="h-12 w-12" />
       </motion.div>
       <motion.div
-        className="absolute top-48 right-[18%] text-primary/15"
+        className="absolute top-48 right-[18%] text-primary/15 hidden sm:block"
         animate={{ y: [0, -20, 0], rotate: [0, -5, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
       >
         <Shield className="h-10 w-10" />
       </motion.div>
       <motion.div
-        className="absolute bottom-32 left-[20%] text-primary/15"
+        className="absolute bottom-32 left-[20%] text-primary/15 hidden sm:block"
         animate={{ y: [0, -12, 0], rotate: [0, 3, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
       >
@@ -64,14 +61,14 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-6">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-3 sm:mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
             Technology Solutions for Your Business
           </span>
         </motion.div>
 
         <motion.h1
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6"
+          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-3 sm:mb-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
@@ -84,7 +81,7 @@ export function Hero() {
         </motion.h1>
 
         <motion.p
-          className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-8"
+          className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-5 sm:mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -95,23 +92,23 @@ export function Hero() {
         </motion.p>
 
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-row items-center justify-center gap-2 sm:gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <Button
-            size="lg"
-            className="gap-2 text-base px-8"
+            size="sm"
+            className="gap-1.5 text-xs sm:text-sm sm:size-lg sm:gap-2 sm:px-8"
             onClick={() => handleScroll("#contact")}
           >
             Start Your Project
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
           </Button>
           <Button
             variant="outline"
-            size="lg"
-            className="gap-2 text-base px-8"
+            size="sm"
+            className="gap-1.5 text-xs sm:text-sm sm:size-lg sm:gap-2 sm:px-8"
             onClick={() => handleScroll("#services")}
           >
             Explore Services
@@ -120,23 +117,23 @@ export function Hero() {
 
         {/* Stats bar */}
         <motion.div
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
+          className="mt-8 sm:mt-16 grid grid-cols-4 gap-2 sm:gap-4 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           {[
-            { value: "150+", label: "Projects Delivered" },
-            { value: "50+", label: "Happy Clients" },
-            { value: "8+", label: "Years Experience" },
-            { value: "24/7", label: "Support Available" },
+            { value: "150+", label: "Projects" },
+            { value: "50+", label: "Clients" },
+            { value: "8+", label: "Years" },
+            { value: "24/7", label: "Support" },
           ].map((stat, i) => (
             <div
               key={i}
-              className="text-center p-4 rounded-xl bg-card/50 border border-border/50"
+              className="text-center p-2 sm:p-4 rounded-lg sm:rounded-xl bg-card/50 border border-border/50"
             >
-              <div className="text-2xl sm:text-3xl font-bold text-primary">{stat.value}</div>
-              <div className="text-xs sm:text-sm text-muted-foreground mt-1">{stat.label}</div>
+              <div className="text-lg sm:text-3xl font-bold text-primary">{stat.value}</div>
+              <div className="text-[10px] sm:text-sm text-muted-foreground mt-0.5 sm:mt-1">{stat.label}</div>
             </div>
           ))}
         </motion.div>
@@ -144,7 +141,7 @@ export function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2"
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
@@ -153,7 +150,7 @@ export function Hero() {
           className="text-muted-foreground hover:text-primary transition-colors"
           aria-label="Scroll to services"
         >
-          <ChevronDown className="h-6 w-6" />
+          <ChevronDown className="h-5 w-5 sm:h-6 sm:w-6" />
         </button>
       </motion.div>
     </section>
