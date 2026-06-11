@@ -13,6 +13,7 @@ const technologies = [
   { name: "Tailwind CSS", category: "Frontend" },
   { name: "Node.js", category: "Backend" },
   { name: "Python", category: "Backend" },
+  { name: ".NET", category: "Backend" },
   { name: "Django", category: "Backend" },
   { name: "Express.js", category: "Backend" },
   { name: "PostgreSQL", category: "Database" },
