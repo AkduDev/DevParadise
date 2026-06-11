@@ -23,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useLanguage } from "@/lib/i18n"
 
 const WHATSAPP_NUMBER = "5355819421"
 const WHATSAPP_MESSAGE = encodeURIComponent(
@@ -30,36 +31,8 @@ const WHATSAPP_MESSAGE = encodeURIComponent(
 )
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`
 
-const contactInfo = [
-  {
-    icon: MessageCircle,
-    label: "WhatsApp",
-    value: "+53 5581 9421",
-    href: WHATSAPP_LINK,
-    external: true,
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    value: "akdulaydev@gmail.com",
-    href: "#contact-form",
-    internal: true,
-  },
-  {
-    icon: MapPin,
-    label: "Dirección",
-    value: "Habana, Cuba",
-    href: "#",
-  },
-  {
-    icon: Clock,
-    label: "Horario",
-    value: "Lun-Vie: 9AM - 6PM",
-    href: "#",
-  },
-]
-
 export function Contact() {
+  const { dict } = useLanguage()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-80px" })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -70,6 +43,35 @@ export function Contact() {
     service: "",
     message: "",
   })
+
+  const contactInfo = [
+    {
+      icon: MessageCircle,
+      label: dict.contact.whatsapp,
+      value: "+53 5581 9421",
+      href: WHATSAPP_LINK,
+      external: true,
+    },
+    {
+      icon: Mail,
+      label: dict.contact.email,
+      value: "akdulaydev@gmail.com",
+      href: "#contact-form",
+      internal: true,
+    },
+    {
+      icon: MapPin,
+      label: dict.contact.address,
+      value: "Habana, Cuba",
+      href: "#",
+    },
+    {
+      icon: Clock,
+      label: dict.contact.hours,
+      value: dict.contact.hoursValue,
+      href: "#",
+    },
+  ]
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -107,14 +109,13 @@ export function Contact() {
           transition={{ duration: 0.5 }}
         >
           <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-2 sm:mb-4">
-            Get In Touch
+            {dict.contact.badge}
           </span>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-2 sm:mb-4">
-            Let&apos;s Build <span className="gradient-text">Together</span>
+            {dict.contact.title} <span className="gradient-text">{dict.contact.titleAccent}</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-xs sm:text-base lg:text-lg">
-            Ready to start your next project? Get in touch and let&apos;s
-            discuss how we can help bring your vision to life.
+            {dict.contact.description}
           </p>
         </motion.div>
 
@@ -126,7 +127,7 @@ export function Contact() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-sm sm:text-lg font-semibold mb-2 sm:mb-4">Contact Information</h3>
+            <h3 className="text-sm sm:text-lg font-semibold mb-2 sm:mb-4">{dict.contact.infoTitle}</h3>
             {/* Contact items — 2 cols on mobile */}
             <div className="grid grid-cols-2 lg:grid-cols-1 gap-1.5 sm:gap-2 lg:gap-3">
               {contactInfo.map((info, i) => (
@@ -195,21 +196,20 @@ export function Contact() {
                       <CheckCircle2 className="h-5 w-5 sm:h-7 sm:w-7 text-primary" />
                     </div>
                     <h3 className="text-base sm:text-xl font-semibold mb-1 sm:mb-2">
-                      Message Sent!
+                      {dict.contact.successTitle}
                     </h3>
                     <p className="text-muted-foreground text-xs sm:text-sm max-w-md">
-                      Thank you for reaching out. We&apos;ll get back to you
-                      within 24 hours.
+                      {dict.contact.successDescription}
                     </p>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 lg:space-y-5">
                     <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
                       <div className="space-y-1 sm:space-y-2">
-                        <Label htmlFor="name" className="text-[10px] sm:text-xs">Full Name</Label>
+                        <Label htmlFor="name" className="text-[10px] sm:text-xs">{dict.contact.formName}</Label>
                         <Input
                           id="name"
-                          placeholder="Your name"
+                          placeholder={dict.contact.formNamePlaceholder}
                           required
                           className="h-8 sm:h-10 text-xs sm:text-sm"
                           value={formData.name}
@@ -219,11 +219,11 @@ export function Contact() {
                         />
                       </div>
                       <div className="space-y-1 sm:space-y-2">
-                        <Label htmlFor="email" className="text-[10px] sm:text-xs">Email</Label>
+                        <Label htmlFor="email" className="text-[10px] sm:text-xs">{dict.contact.formEmail}</Label>
                         <Input
                           id="email"
                           type="email"
-                          placeholder="your@email.com"
+                          placeholder={dict.contact.formEmailPlaceholder}
                           required
                           className="h-8 sm:h-10 text-xs sm:text-sm"
                           value={formData.email}
@@ -235,7 +235,7 @@ export function Contact() {
                     </div>
 
                     <div className="space-y-1 sm:space-y-2">
-                      <Label htmlFor="service" className="text-[10px] sm:text-xs">Service Needed</Label>
+                      <Label htmlFor="service" className="text-[10px] sm:text-xs">{dict.contact.formService}</Label>
                       <Select
                         value={formData.service}
                         onValueChange={(value) =>
@@ -243,44 +243,23 @@ export function Contact() {
                         }
                       >
                         <SelectTrigger id="service" className="h-8 sm:h-10 text-xs sm:text-sm">
-                          <SelectValue placeholder="Select a service" />
+                          <SelectValue placeholder={dict.contact.formServicePlaceholder} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="software">
-                            Custom Software Development
-                          </SelectItem>
-                          <SelectItem value="security">
-                            Security Camera Installation
-                          </SelectItem>
-                          <SelectItem value="programs">
-                            Program Installation & Setup
-                          </SelectItem>
-                          <SelectItem value="os">
-                            Operating Systems
-                          </SelectItem>
-                          <SelectItem value="cybersecurity">
-                            Cybersecurity Solutions
-                          </SelectItem>
-                          <SelectItem value="network">
-                            Network Infrastructure
-                          </SelectItem>
-                          <SelectItem value="database">
-                            Database Management
-                          </SelectItem>
-                          <SelectItem value="cloud">Cloud Services</SelectItem>
-                          <SelectItem value="support">
-                            IT Maintenance & Support
-                          </SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
+                          {Object.entries(dict.contact.serviceOptions).map(([key, label]) => (
+                            <SelectItem key={key} value={key}>
+                              {label}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div className="space-y-1 sm:space-y-2">
-                      <Label htmlFor="message" className="text-[10px] sm:text-xs">Project Details</Label>
+                      <Label htmlFor="message" className="text-[10px] sm:text-xs">{dict.contact.formMessage}</Label>
                       <Textarea
                         id="message"
-                        placeholder="Tell us about your project..."
+                        placeholder={dict.contact.formMessagePlaceholder}
                         rows={3}
                         required
                         className="text-xs sm:text-sm min-h-[60px] sm:min-h-[100px]"
@@ -302,11 +281,11 @@ export function Contact() {
                       {isSubmitting ? (
                         <>
                           <Loader2 className="h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
-                          Sending...
+                          {dict.contact.formSending}
                         </>
                       ) : (
                         <>
-                          Send Message
+                          {dict.contact.formSubmit}
                           <Send className="h-3 w-3 sm:h-4 sm:w-4" />
                         </>
                       )}

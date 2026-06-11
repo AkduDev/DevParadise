@@ -3,42 +3,18 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { CheckCircle2, Zap, Users, Target } from "lucide-react"
+import { useLanguage } from "@/lib/i18n"
 
 const values = [
-  {
-    icon: Zap,
-    title: "Innovation First",
-    description:
-      "We stay ahead of the technology curve, adopting the latest tools and methodologies to deliver cutting-edge solutions.",
-  },
-  {
-    icon: Users,
-    title: "Client-Centered",
-    description:
-      "Your success is our success. We work closely with every client to understand their unique challenges and deliver tailored results.",
-  },
-  {
-    icon: Target,
-    title: "Results Driven",
-    description:
-      "We don't just write code or install hardware — we deliver measurable outcomes that transform businesses.",
-  },
-]
-
-const highlights = [
-  "Custom software tailored to your business",
-  "Professional security camera installations",
-  "All major operating systems supported",
-  "End-to-end project management",
-  "24/7 technical support & maintenance",
-  "Scalable and future-proof solutions",
-  "Competitive and transparent pricing",
-  "Certified and experienced team",
+  { icon: Zap },
+  { icon: Users },
+  { icon: Target },
 ]
 
 export function About() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-80px" })
+  const { dict } = useLanguage()
 
   return (
     <section id="about" className="py-10 sm:py-20 lg:py-28 relative">
@@ -53,29 +29,22 @@ export function About() {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-2 sm:mb-4">
-              About Us
+              {dict.about.badge}
             </span>
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-3 sm:mb-6">
-              Your Trusted{" "}
-              <span className="gradient-text">Technology Partner</span>
+              {dict.about.title}{" "}
+              <span className="gradient-text">{dict.about.titleAccent}</span>
             </h2>
             <p className="text-muted-foreground text-xs sm:text-base lg:text-lg mb-3 sm:mb-6 leading-relaxed">
-              DevParadise was founded with a simple mission: make technology
-              accessible, reliable, and impactful for businesses of all sizes.
-              From writing the first line of code to mounting the last security
-              camera, we handle it all.
+              {dict.about.description1}
             </p>
             <p className="text-muted-foreground text-xs sm:text-sm mb-4 sm:mb-8 leading-relaxed">
-              With over 8 years of experience in the IT industry, our team of
-              certified professionals brings expertise across software
-              development, network infrastructure, security systems, and cloud
-              computing. We don&apos;t just implement solutions — we build
-              partnerships that grow with your business.
+              {dict.about.description2}
             </p>
 
             {/* Highlights — 2 cols on all screens */}
             <div className="grid grid-cols-2 gap-1.5 sm:gap-3">
-              {highlights.map((item, i) => (
+              {dict.about.highlights.map((item, i) => (
                 <motion.div
                   key={i}
                   className="flex items-start gap-1.5 sm:gap-2"
@@ -99,7 +68,7 @@ export function About() {
           >
             {values.map((value, i) => (
               <motion.div
-                key={value.title}
+                key={i}
                 className="group p-3 sm:p-5 lg:p-6 rounded-lg sm:rounded-xl border bg-card hover:shadow-lg hover:border-primary/30 transition-all duration-300"
                 initial={{ opacity: 0, y: 15 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -111,9 +80,9 @@ export function About() {
                     <value.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
                   </div>
                   <div>
-                    <h3 className="text-xs sm:text-base lg:text-lg font-semibold mb-0.5 sm:mb-1">{value.title}</h3>
+                    <h3 className="text-xs sm:text-base lg:text-lg font-semibold mb-0.5 sm:mb-1">{dict.about.values[i].title}</h3>
                     <p className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground leading-relaxed">
-                      {value.description}
+                      {dict.about.values[i].description}
                     </p>
                   </div>
                 </div>
@@ -127,10 +96,9 @@ export function About() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.6 }}
             >
-              <h3 className="text-sm sm:text-lg lg:text-xl font-bold mb-1 sm:mb-2">Ready to Get Started?</h3>
+              <h3 className="text-sm sm:text-lg lg:text-xl font-bold mb-1 sm:mb-2">{dict.about.ctaTitle}</h3>
               <p className="text-primary-foreground/80 text-[10px] sm:text-xs lg:text-sm mb-2 sm:mb-4">
-                Let&apos;s discuss how we can help transform your business with
-                the right technology solutions.
+                {dict.about.ctaDescription}
               </p>
               <button
                 onClick={() => {
@@ -139,7 +107,7 @@ export function About() {
                 }}
                 className="inline-flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-md bg-primary-foreground text-primary font-medium text-[10px] sm:text-sm hover:bg-primary-foreground/90 transition-colors"
               >
-                Contact Us Today
+                {dict.about.ctaButton}
               </button>
             </motion.div>
           </motion.div>

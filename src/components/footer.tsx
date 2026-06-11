@@ -11,29 +11,7 @@ import {
   MessageCircle,
 } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
-
-const footerLinks = {
-  Services: [
-    { label: "Software Dev", href: "#services" },
-    { label: "Security Cameras", href: "#services" },
-    { label: "Program Setup", href: "#services" },
-    { label: "Operating Systems", href: "#services" },
-    { label: "Cybersecurity", href: "#services" },
-    { label: "Cloud Services", href: "#services" },
-  ],
-  Company: [
-    { label: "About Us", href: "#about" },
-    { label: "Portfolio", href: "#portfolio" },
-    { label: "Testimonials", href: "#testimonials" },
-    { label: "Contact", href: "#contact" },
-  ],
-  Support: [
-    { label: "Help Center", href: "#" },
-    { label: "Docs", href: "#" },
-    { label: "Status", href: "#" },
-    { label: "Agreement", href: "#" },
-  ],
-}
+import { useLanguage } from "@/lib/i18n"
 
 const socialLinks = [
   { icon: Github, href: "#", label: "GitHub" },
@@ -41,7 +19,35 @@ const socialLinks = [
   { icon: Linkedin, href: "#", label: "LinkedIn" },
 ]
 
+const companyHrefs = ["#about", "#portfolio", "#testimonials", "#contact"]
+
 export function Footer() {
+  const { dict } = useLanguage()
+
+  const footerSections = [
+    {
+      title: dict.footer.sections.services,
+      links: dict.footer.serviceLinks.map((label) => ({
+        label,
+        href: "#services",
+      })),
+    },
+    {
+      title: dict.footer.sections.company,
+      links: dict.footer.companyLinks.map((label, i) => ({
+        label,
+        href: companyHrefs[i] ?? "#",
+      })),
+    },
+    {
+      title: dict.footer.sections.support,
+      links: dict.footer.supportLinks.map((label) => ({
+        label,
+        href: "#",
+      })),
+    },
+  ]
+
   const handleNavClick = (href: string) => {
     if (href.startsWith("#")) {
       const element = document.querySelector(href)
@@ -50,6 +56,8 @@ export function Footer() {
       }
     }
   }
+
+  const madeWithParts = dict.footer.madeWith.split("{heart}")
 
   return (
     <footer className="bg-card border-t">
@@ -67,8 +75,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-[10px] sm:text-xs text-muted-foreground mb-3 sm:mb-5 max-w-xs leading-relaxed">
-              Your comprehensive technology partner. From software development to
-              security installations and everything in between.
+              {dict.footer.description}
             </p>
             <div className="space-y-1 sm:space-y-2">
               <a
@@ -99,11 +106,11 @@ export function Footer() {
           </div>
 
           {/* Links sections */}
-          {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
-              <h4 className="font-semibold text-[10px] sm:text-xs lg:text-sm mb-1.5 sm:mb-3">{title}</h4>
+          {footerSections.map((section) => (
+            <div key={section.title}>
+              <h4 className="font-semibold text-[10px] sm:text-xs lg:text-sm mb-1.5 sm:mb-3">{section.title}</h4>
               <ul className="space-y-0.5 sm:space-y-1.5">
-                {links.map((link) => (
+                {section.links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
@@ -144,8 +151,9 @@ export function Footer() {
             ))}
           </div>
           <p className="text-[9px] sm:text-xs text-muted-foreground flex items-center gap-0.5 sm:gap-1">
-            Made with <Heart className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-primary fill-primary" /> by
-            DevParadise
+            {madeWithParts[0]}
+            <Heart className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-primary fill-primary" />
+            {madeWithParts[1]}
           </p>
         </div>
       </div>

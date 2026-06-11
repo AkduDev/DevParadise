@@ -3,41 +3,19 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { MessageSquare, Search, Code, Rocket } from "lucide-react"
+import { useLanguage } from "@/lib/i18n"
 
 const steps = [
-  {
-    icon: MessageSquare,
-    step: "01",
-    title: "Consultation",
-    description:
-      "Free consultation to understand your needs, challenges, and goals.",
-  },
-  {
-    icon: Search,
-    step: "02",
-    title: "Planning",
-    description:
-      "Detailed project plan and design mockups aligned with your vision.",
-  },
-  {
-    icon: Code,
-    step: "03",
-    title: "Development",
-    description:
-      "Precise execution with regular updates throughout the process.",
-  },
-  {
-    icon: Rocket,
-    step: "04",
-    title: "Launch",
-    description:
-      "Deployment, training, and ongoing support after launch.",
-  },
+  { icon: MessageSquare, step: "01" },
+  { icon: Search, step: "02" },
+  { icon: Code, step: "03" },
+  { icon: Rocket, step: "04" },
 ]
 
 export function Process() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-80px" })
+  const { dict } = useLanguage()
 
   return (
     <section className="py-10 sm:py-20 lg:py-28 bg-muted/30 relative">
@@ -52,14 +30,13 @@ export function Process() {
           transition={{ duration: 0.5 }}
         >
           <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-2 sm:mb-4">
-            How We Work
+            {dict.process.badge}
           </span>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-2 sm:mb-4">
-            Our <span className="gradient-text">Process</span>
+            {dict.process.title} <span className="gradient-text">{dict.process.titleAccent}</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-xs sm:text-base lg:text-lg">
-            A proven methodology that ensures every project is delivered on time,
-            within budget, and beyond expectations.
+            {dict.process.description}
           </p>
         </motion.div>
 
@@ -85,9 +62,9 @@ export function Process() {
                   </span>
                 </div>
 
-                <h3 className="text-[11px] sm:text-base lg:text-lg font-semibold mb-1 sm:mb-2">{step.title}</h3>
+                <h3 className="text-[11px] sm:text-base lg:text-lg font-semibold mb-1 sm:mb-2">{dict.process.steps[i].title}</h3>
                 <p className="text-[9px] sm:text-xs lg:text-sm text-muted-foreground leading-relaxed max-w-[200px] sm:max-w-xs mx-auto">
-                  {step.description}
+                  {dict.process.steps[i].description}
                 </p>
               </div>
             </motion.div>

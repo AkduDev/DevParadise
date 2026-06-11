@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
+import { useLanguage } from "@/lib/i18n"
 
 const technologies = [
   { name: "React", category: "Frontend" },
@@ -39,9 +40,19 @@ const categories = [
   "Systems",
 ]
 
+const categoryKeyMap: Record<string, "frontend" | "backend" | "database" | "cloud" | "devops" | "systems"> = {
+  Frontend: "frontend",
+  Backend: "backend",
+  Database: "database",
+  Cloud: "cloud",
+  DevOps: "devops",
+  Systems: "systems",
+}
+
 export function TechStack() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-80px" })
+  const { dict } = useLanguage()
 
   return (
     <section className="py-10 sm:py-20 lg:py-28 relative overflow-hidden">
@@ -62,14 +73,13 @@ export function TechStack() {
           transition={{ duration: 0.5 }}
         >
           <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-2 sm:mb-4">
-            Our Toolkit
+            {dict.techStack.badge}
           </span>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-2 sm:mb-4">
-            Technologies We <span className="gradient-text">Work With</span>
+            {dict.techStack.title} <span className="gradient-text">{dict.techStack.titleAccent}</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-xs sm:text-base lg:text-lg">
-            We leverage the best tools and technologies to deliver exceptional
-            results for every project.
+            {dict.techStack.description}
           </p>
         </motion.div>
 
@@ -84,7 +94,7 @@ export function TechStack() {
               className="p-2.5 sm:p-4 lg:p-5 rounded-lg sm:rounded-xl border bg-card hover:shadow-md transition-all duration-300"
             >
               <h3 className="text-[10px] sm:text-xs lg:text-sm font-semibold text-primary mb-1.5 sm:mb-3 uppercase tracking-wider">
-                {category}
+                {dict.techStack.categories[categoryKeyMap[category]]}
               </h3>
               <div className="flex flex-wrap gap-1 sm:gap-1.5 lg:gap-2">
                 {technologies

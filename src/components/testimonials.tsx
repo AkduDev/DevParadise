@@ -6,6 +6,7 @@ import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { useLanguage } from "@/lib/i18n"
 
 const testimonials = [
   {
@@ -13,52 +14,41 @@ const testimonials = [
     role: "CEO, TechRetail Corp",
     initials: "CR",
     rating: 5,
-    text: "DevParadise transformed our entire retail operation. Their custom POS system and security camera installation across all 12 locations was flawless.",
-    service: "Software & Security",
   },
   {
     name: "María González",
     role: "CTO, HealthPlus Medical",
     initials: "MG",
     rating: 5,
-    text: "The hospital management system they built has revolutionized how we handle patient records and appointments. Highly recommend their team.",
-    service: "Software Dev",
   },
   {
     name: "Roberto Méndez",
     role: "Ops Director, LogiTrans",
     initials: "RM",
     rating: 5,
-    text: "Complete network infrastructure overhaul delivered beyond expectations. VPN and VLANs improved our security and efficiency tenfold.",
-    service: "Network Infra",
   },
   {
     name: "Ana Martínez",
     role: "Owner, Boutique del Sol",
     initials: "AM",
     rating: 5,
-    text: "Affordable security system with top-notch quality. The remote monitoring gives me peace of mind even when I'm away from the store.",
-    service: "Security Cameras",
   },
   {
     name: "Diego Fernández",
     role: "IT Manager, FinGroup",
     initials: "DF",
     rating: 5,
-    text: "Cloud migration handled with zero downtime. They migrated our legacy system to AWS and cost savings have been significant.",
-    service: "Cloud Services",
   },
   {
     name: "Laura Sánchez",
     role: "Principal, Academia Digital",
     initials: "LS",
     rating: 5,
-    text: "Set up our entire computer lab with software, OS, and CCTV for student safety. Professional, reliable, and always available for support.",
-    service: "OS & Security",
   },
 ]
 
 export function Testimonials() {
+  const { dict } = useLanguage()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-80px" })
   const [currentPage, setCurrentPage] = useState(0)
@@ -102,14 +92,13 @@ export function Testimonials() {
           transition={{ duration: 0.5 }}
         >
           <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-2 sm:mb-4">
-            Testimonials
+            {dict.testimonials.badge}
           </span>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-2 sm:mb-4">
-            What Our <span className="gradient-text">Clients Say</span>
+            {dict.testimonials.title} <span className="gradient-text">{dict.testimonials.titleAccent}</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-xs sm:text-base lg:text-lg">
-            Don&apos;t just take our word for it — hear from the businesses
-            we&apos;ve helped succeed.
+            {dict.testimonials.description}
           </p>
         </motion.div>
 
@@ -120,52 +109,55 @@ export function Testimonials() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          {currentTestimonials.map((testimonial, i) => (
-            <motion.div
-              key={`${testimonial.name}-${currentPage}`}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-            >
-              <Card className="h-full hover:shadow-lg transition-all duration-300 hover:border-primary/30">
-                <CardContent className="p-2.5 sm:p-4 lg:p-5">
-                  <div className="flex items-center gap-0.5 mb-1.5 sm:mb-2">
-                    {Array.from({ length: testimonial.rating }).map((_, j) => (
-                      <Star
-                        key={j}
-                        className="h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4 fill-amber-400 text-amber-400"
-                      />
-                    ))}
-                  </div>
-
-                  <Quote className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-primary/30 mb-1 sm:mb-2" />
-
-                  <p className="text-[9px] sm:text-xs lg:text-sm leading-relaxed mb-2 sm:mb-4 line-clamp-3 sm:line-clamp-none">
-                    &ldquo;{testimonial.text}&rdquo;
-                  </p>
-
-                  <div className="flex items-center gap-1.5 sm:gap-2.5 pt-2 sm:pt-3 border-t">
-                    <Avatar className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10 bg-primary/10">
-                      <AvatarFallback className="bg-primary/10 text-primary text-[8px] sm:text-[10px] lg:text-xs font-semibold">
-                        {testimonial.initials}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="min-w-0 flex-1">
-                      <div className="font-semibold text-[9px] sm:text-xs lg:text-sm truncate">
-                        {testimonial.name}
-                      </div>
-                      <div className="text-[8px] sm:text-[10px] lg:text-xs text-muted-foreground truncate">
-                        {testimonial.role}
-                      </div>
+          {currentTestimonials.map((testimonial, i) => {
+            const globalIndex = currentPage * itemsPerPage + i
+            return (
+              <motion.div
+                key={`${testimonial.name}-${currentPage}`}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+              >
+                <Card className="h-full hover:shadow-lg transition-all duration-300 hover:border-primary/30">
+                  <CardContent className="p-2.5 sm:p-4 lg:p-5">
+                    <div className="flex items-center gap-0.5 mb-1.5 sm:mb-2">
+                      {Array.from({ length: testimonial.rating }).map((_, j) => (
+                        <Star
+                          key={j}
+                          className="h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4 fill-amber-400 text-amber-400"
+                        />
+                      ))}
                     </div>
-                    <span className="text-[8px] sm:text-[10px] px-1 sm:px-2 py-0.5 rounded-full bg-primary/10 text-primary shrink-0 hidden sm:inline">
-                      {testimonial.service}
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+
+                    <Quote className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-primary/30 mb-1 sm:mb-2" />
+
+                    <p className="text-[9px] sm:text-xs lg:text-sm leading-relaxed mb-2 sm:mb-4 line-clamp-3 sm:line-clamp-none">
+                      &ldquo;{dict.testimonials.items[globalIndex].text}&rdquo;
+                    </p>
+
+                    <div className="flex items-center gap-1.5 sm:gap-2.5 pt-2 sm:pt-3 border-t">
+                      <Avatar className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10 bg-primary/10">
+                        <AvatarFallback className="bg-primary/10 text-primary text-[8px] sm:text-[10px] lg:text-xs font-semibold">
+                          {testimonial.initials}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="min-w-0 flex-1">
+                        <div className="font-semibold text-[9px] sm:text-xs lg:text-sm truncate">
+                          {testimonial.name}
+                        </div>
+                        <div className="text-[8px] sm:text-[10px] lg:text-xs text-muted-foreground truncate">
+                          {testimonial.role}
+                        </div>
+                      </div>
+                      <span className="text-[8px] sm:text-[10px] px-1 sm:px-2 py-0.5 rounded-full bg-primary/10 text-primary shrink-0 hidden sm:inline">
+                        {dict.testimonials.items[globalIndex].service}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )
+          })}
         </motion.div>
 
         {/* Pagination */}

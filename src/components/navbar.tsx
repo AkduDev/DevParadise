@@ -1,25 +1,31 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Code2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { LanguageToggle } from "@/components/language-toggle"
+import { useLanguage } from "@/lib/i18n"
 import { cn } from "@/lib/utils"
 
-const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#services", label: "Services" },
-  { href: "#portfolio", label: "Portfolio" },
-  { href: "#about", label: "About" },
-  { href: "#testimonials", label: "Testimonials" },
-  { href: "#contact", label: "Contact" },
-]
-
 export function Navbar() {
+  const { dict } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
+
+  const navLinks = useMemo(
+    () => [
+      { href: "#home", label: dict.nav.home },
+      { href: "#services", label: dict.nav.services },
+      { href: "#portfolio", label: dict.nav.portfolio },
+      { href: "#about", label: dict.nav.about },
+      { href: "#testimonials", label: dict.nav.testimonials },
+      { href: "#contact", label: dict.nav.contact },
+    ],
+    [dict]
+  )
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,7 +47,7 @@ export function Navbar() {
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [navLinks])
 
   const handleNavClick = (href: string) => {
     setIsOpen(false)
@@ -115,12 +121,13 @@ export function Navbar() {
           {/* Right side actions */}
           <div className="flex items-center gap-2">
             <ThemeToggle />
+            <LanguageToggle />
             <Button
               size="sm"
               className="hidden md:inline-flex"
               onClick={() => handleNavClick("#contact")}
             >
-              Get Started
+              {dict.nav.getStarted}
             </Button>
 
             {/* Mobile menu button */}
@@ -165,13 +172,16 @@ export function Navbar() {
                   {link.label}
                 </a>
               ))}
-              <Button
-                className="w-full mt-2"
-                size="sm"
-                onClick={() => handleNavClick("#contact")}
-              >
-                Get Started
-              </Button>
+              <div className="flex items-center gap-2 pt-2">
+                <LanguageToggle />
+                <Button
+                  className="flex-1"
+                  size="sm"
+                  onClick={() => handleNavClick("#contact")}
+                >
+                  {dict.nav.getStarted}
+                </Button>
+              </div>
             </div>
           </motion.div>
         )}

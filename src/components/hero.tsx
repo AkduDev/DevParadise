@@ -3,8 +3,11 @@
 import { motion } from "framer-motion"
 import { ArrowRight, Monitor, Shield, Cpu, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useLanguage } from "@/lib/i18n"
 
 export function Hero() {
+  const { dict } = useLanguage()
+
   const handleScroll = (href: string) => {
     const element = document.querySelector(href)
     if (element) {
@@ -63,7 +66,7 @@ export function Hero() {
         >
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-3 sm:mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-            Technology Solutions for Your Business
+            {dict.hero.badge}
           </span>
         </motion.div>
 
@@ -73,11 +76,11 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          We Build the
+          {dict.hero.title1}
           <br />
-          <span className="gradient-text">Digital Future</span>
+          <span className="gradient-text">{dict.hero.title2}</span>
           <br />
-          You Envision
+          {dict.hero.title3}
         </motion.h1>
 
         <motion.p
@@ -86,9 +89,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          From custom software development to security camera installations, operating systems
-          deployment, and complete IT infrastructure — DevParadise is your one-stop
-          technology partner.
+          {dict.hero.description}
         </motion.p>
 
         <motion.div
@@ -102,7 +103,7 @@ export function Hero() {
             className="gap-1.5 text-xs sm:text-sm sm:size-lg sm:gap-2 sm:px-8"
             onClick={() => handleScroll("#contact")}
           >
-            Start Your Project
+            {dict.hero.cta1}
             <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
           </Button>
           <Button
@@ -111,7 +112,7 @@ export function Hero() {
             className="gap-1.5 text-xs sm:text-sm sm:size-lg sm:gap-2 sm:px-8"
             onClick={() => handleScroll("#services")}
           >
-            Explore Services
+            {dict.hero.cta2}
           </Button>
         </motion.div>
 
@@ -123,10 +124,10 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           {[
-            { value: "150+", label: "Projects" },
-            { value: "50+", label: "Clients" },
-            { value: "8+", label: "Years" },
-            { value: "24/7", label: "Support" },
+            { value: "150+", label: dict.hero.statProjects },
+            { value: "50+", label: dict.hero.statClients },
+            { value: "8+", label: dict.hero.statYears },
+            { value: "24/7", label: dict.hero.statSupport },
           ].map((stat, i) => (
             <div
               key={i}
