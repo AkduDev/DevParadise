@@ -3,12 +3,12 @@
 import {
   Code2,
   Mail,
-  Phone,
   MapPin,
   Github,
   Twitter,
   Linkedin,
   Heart,
+  MessageCircle,
 } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 
@@ -72,22 +72,28 @@ export function Footer() {
             </p>
             <div className="space-y-1 sm:space-y-2">
               <a
-                href="mailto:contact@devparadise.com"
+                href="https://wa.me/5355819421?text=Hola%20DevParadise%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios%20tecnol%C3%B3gicos.%20%C2%BFPodr%C3%ADan%20brindarme%20informaci%C3%B3n%3F"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-muted-foreground hover:text-primary transition-colors"
+              >
+                <MessageCircle className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                +53 5581 9421 (WhatsApp)
+              </a>
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault()
+                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
+                }}
                 className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-muted-foreground hover:text-primary transition-colors"
               >
                 <Mail className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                contact@devparadise.com
-              </a>
-              <a
-                href="tel:+15551234567"
-                className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                +1 (555) 123-4567
+                akdulaydev@gmail.com
               </a>
               <span className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-muted-foreground">
                 <MapPin className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                Havana, Cuba
+                Habana, Cuba
               </span>
             </div>
           </div>

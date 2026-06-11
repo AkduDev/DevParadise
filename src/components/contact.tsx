@@ -4,12 +4,12 @@ import { motion, useInView } from "framer-motion"
 import { useRef, useState } from "react"
 import {
   Mail,
-  Phone,
   MapPin,
   Clock,
   Send,
   Loader2,
   CheckCircle2,
+  MessageCircle,
 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -24,29 +24,37 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
+const WHATSAPP_NUMBER = "5355819421"
+const WHATSAPP_MESSAGE = encodeURIComponent(
+  "Hola DevParadise, me interesa conocer más sobre sus servicios tecnológicos. ¿Podrían brindarme información?"
+)
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`
+
 const contactInfo = [
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: "+53 5581 9421",
+    href: WHATSAPP_LINK,
+    external: true,
+  },
   {
     icon: Mail,
     label: "Email",
-    value: "contact@devparadise.com",
-    href: "mailto:contact@devparadise.com",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+1 (555) 123-4567",
-    href: "tel:+15551234567",
+    value: "akdulaydev@gmail.com",
+    href: "#contact-form",
+    internal: true,
   },
   {
     icon: MapPin,
-    label: "Location",
-    value: "Havana, Cuba",
+    label: "Dirección",
+    value: "Habana, Cuba",
     href: "#",
   },
   {
     icon: Clock,
-    label: "Hours",
-    value: "Mon-Fri: 9AM - 6PM",
+    label: "Horario",
+    value: "Lun-Vie: 9AM - 6PM",
     href: "#",
   },
 ]
@@ -130,6 +138,14 @@ export function Contact() {
                 >
                   <a
                     href={info.href}
+                    {...(info.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    onClick={(e) => {
+                      if (info.internal) {
+                        e.preventDefault()
+                        const form = document.getElementById("contact-form")
+                        form?.scrollIntoView({ behavior: "smooth" })
+                      }
+                    }}
                     className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg hover:bg-accent transition-colors group"
                   >
                     <div className="flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 shrink-0">
@@ -155,7 +171,7 @@ export function Contact() {
             >
               <div className="text-center text-muted-foreground">
                 <MapPin className="h-5 w-5 sm:h-7 sm:w-7 mx-auto mb-1 sm:mb-2 text-primary/40" />
-                <p className="text-[10px] sm:text-xs">Havana, Cuba</p>
+                <p className="text-[10px] sm:text-xs">Habana, Cuba</p>
               </div>
             </motion.div>
           </motion.div>
@@ -167,7 +183,7 @@ export function Contact() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <Card>
+            <Card id="contact-form">
               <CardContent className="p-3 sm:p-5 lg:p-8">
                 {isSubmitted ? (
                   <motion.div
