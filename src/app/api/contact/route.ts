@@ -1,36 +1,30 @@
 import { NextRequest, NextResponse } from "next/server"
+import { z } from "zod"
 import { db } from "@/lib/db"
+
+const contactSchema = z.object({
+  name: z.string().min(1).max(100),
+  email: z.string().email(),
+  service: z.string().min(1),
+  message: z.string().min(1).max(2000),
+})
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, email, service, message } = body
+    const result = contactSchema.safeParse(body)
 
-    // Validate required fields
-    if (!name || !email || !service || !message) {
+    if (!result.success) {
       return NextResponse.json(
-        { error: "All fields are required" },
+        { error: "Invalid input", details: result.error.flatten() },
         { status: 400 }
       )
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: "Invalid email format" },
-        { status: 400 }
-      )
-    }
+    const { name, email, service, message } = result.data
 
-    // Save to database
     const contactMessage = await db.contactMessage.create({
-      data: {
-        name,
-        email,
-        service,
-        message,
-      },
+      data: { name, email, service, message },
     })
 
     return NextResponse.json(
@@ -45,23 +39,6 @@ export async function POST(request: NextRequest) {
     console.error("Contact form error:", error)
     return NextResponse.json(
       { error: "Failed to process your message" },
-      { status: 500 }
-    )
-  }
-}
-
-export async function GET() {
-  try {
-    const messages = await db.contactMessage.findMany({
-      orderBy: { createdAt: "desc" },
-      take: 50,
-    })
-
-    return NextResponse.json({ messages })
-  } catch (error) {
-    console.error("Fetch messages error:", error)
-    return NextResponse.json(
-      { error: "Failed to fetch messages" },
       { status: 500 }
     )
   }
